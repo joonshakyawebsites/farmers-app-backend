@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider        = "typegraphql-prisma"
+  output          = "./generated/type-graphql"
+  emitOnly        = "models,relationResolvers"
+  useSimpleInputs = true
+  // emitTranspiledCode = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String            @id @default(cuid())
+  fullName             String
+  username             String            @unique
+  /// @TypeGraphQL.omit(output: true)
+  password             String
+  type                 UserTypeChoice    @default(FARMER)
+  noOfPasswordsChanged Int               @default(0)
+  avatar               String?
+  locationName         String
+  latitude             Float
+  longitude            Float
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  coldStorageItems     ColdStorageItem[]
+  driverTruckNumber    String?
+}
+
+model ColdStorageItem {
+  id        String                    @id @default(cuid())
+  uInt      Int
+  owner     User                      @relation(fields: [ownerId], references: [id])
+  ownerId   String
+  name      String
+  type      ColdStorageItemTypeChoice
+  quantity  Int
+  date      String
+  createdAt DateTime                  @default(now())
+  updatedAt DateTime                  @updatedAt
+
+  @@unique([ownerId, uInt])
+}
+
+enum UserTypeChoice {
+  FARMER
+  COLD_STORAGE_OWNER
+  DRIVER
+  ADMIN
+}
+
+enum ColdStorageItemTypeChoice {
+  FOOD
+  LIQUID
+}

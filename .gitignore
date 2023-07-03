@@ -1,0 +1,5 @@
+node_modules
+.env
+**/config
+prisma/generated/type-graphql
+private.key.pub
