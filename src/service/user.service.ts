@@ -175,6 +175,18 @@ class UserService {
     });
     return true;
   }
+
+  async setDriverTruckNumber(context: Context, driverTruckNumber: string) {
+    await context.prisma.user.update({
+      where: {
+        id: context.user!.id,
+      },
+      data: {
+        driverTruckNumber,
+      },
+    });
+    return true;
+  }
 }
 
 export default UserService;

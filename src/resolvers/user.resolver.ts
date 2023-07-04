@@ -74,6 +74,14 @@ export default class UserResolver {
     return this.userService.setUserLocation(context, input);
   }
 
+  @Mutation(() => Boolean)
+  async setDriverTruckNumber(
+    @Ctx() context: Context,
+    @Arg("driverTruckNumber") driverTruckNumber: string
+  ): Promise<boolean> {
+    return this.userService.setDriverTruckNumber(context, driverTruckNumber);
+  }
+
   @Query(() => [User], { nullable: false })
   async getNearestDrivers(
     @Ctx() context: Context,
