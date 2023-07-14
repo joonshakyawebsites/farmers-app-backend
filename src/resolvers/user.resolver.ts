@@ -1,4 +1,12 @@
-import { Arg, Args, Ctx, Float, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Args,
+  Authorized,
+  Ctx,
+  Mutation,
+  Query,
+  Resolver,
+} from "type-graphql";
 import {
   CreateUserInput,
   LoginInput,
@@ -30,6 +38,7 @@ export default class UserResolver {
     return this.userService.getUsers(context, where, orderBy, pagination);
   }
 
+  @Authorized()
   @Mutation(() => User)
   registerUser(
     @Ctx() context: Context,
@@ -98,7 +107,8 @@ export default class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  me(@Ctx() context: Context): User | null {
+  async me(@Ctx() context: Context): Promise<User | null> {
+    await new Promise((res) => setTimeout(res, 1000));
     return context.user;
   }
 }

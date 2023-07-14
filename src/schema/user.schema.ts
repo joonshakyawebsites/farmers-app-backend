@@ -4,6 +4,9 @@ import { User, UserTypeChoice } from "@generated/type-graphql";
 
 @InputType()
 export class CreateUserInput implements Partial<User> {
+  @Field(() => UserTypeChoice)
+  type: UserTypeChoice;
+
   @Field(() => String)
   fullName: string;
 

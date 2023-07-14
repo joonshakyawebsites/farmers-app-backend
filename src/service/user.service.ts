@@ -47,6 +47,12 @@ class UserService {
   }
 
   async registerUser(context: Context, input: CreateUserInput): Promise<User> {
+    if (context.user!.type !== UserTypeChoice.ADMIN) {
+      throw new UserInputError("You are not authorized to perform this action");
+    }
+    if (input.type === UserTypeChoice.ADMIN) {
+      throw new UserInputError("You cannot create an admin");
+    }
     if (input.password != input.confirmPassword) {
       throw new UserInputError("Passwords do not match");
     }
