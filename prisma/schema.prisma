@@ -26,6 +26,7 @@ model User {
   password             String
   type                 UserTypeChoice    @default(FARMER)
   noOfPasswordsChanged Int               @default(0)
+  phone                String?
   avatar               String?
   locationName         String
   latitude             Float

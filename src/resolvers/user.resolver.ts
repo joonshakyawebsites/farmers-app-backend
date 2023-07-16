@@ -108,6 +108,7 @@ export default class UserResolver {
 
   @Query(() => User, { nullable: true })
   async me(@Ctx() context: Context): Promise<User | null> {
+    // await new Promise((resolve) => setTimeout(resolve, 10000));
     return context.user;
   }
 }

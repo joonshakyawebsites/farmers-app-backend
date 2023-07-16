@@ -132,6 +132,7 @@ class UserService {
     orderBy: UserOrderByWithRelationInput,
     pagination: PaginationArgsType
   ) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const users = await context.prisma.user.findMany({
       where: {
         ...where,

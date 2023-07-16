@@ -10,6 +10,18 @@ export class CreateUserInput implements Partial<User> {
   @Field(() => String)
   fullName: string;
 
+  @MinLength(10, {
+    message: "phone number must not be less than 10 digits",
+  })
+  @MaxLength(10, {
+    message: "phone number must not be longer than 10 digits",
+  })
+  @Field(() => String)
+  phone: string;
+
+  @Field(() => String, { nullable: true })
+  driverTruckNumber?: string;
+
   @MinLength(6, {
     message: "password must be at least 6 characters long",
   })
