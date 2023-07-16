@@ -3,3 +3,4 @@ node_modules
 **/config
 prisma/generated/type-graphql
 private.key.pub
+dist
