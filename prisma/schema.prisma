@@ -57,6 +57,7 @@ enum UserTypeChoice {
   COLD_STORAGE_OWNER
   DRIVER
   ADMIN
+  CUSTOMER
 }
 
 enum ColdStorageItemTypeChoice {
