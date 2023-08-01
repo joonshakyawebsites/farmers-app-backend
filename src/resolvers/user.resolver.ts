@@ -29,12 +29,13 @@ export default class UserResolver {
   }
 
   @Query(() => [User], { nullable: false })
-  getUsers(
+  async getUsers(
     @Ctx() context: Context,
     @Arg("where", { nullable: true }) where: UserWhereInput,
     @Arg("orderBy", { nullable: true }) orderBy: UserOrderByWithRelationInput,
     @Args() pagination: PaginationArgsType
   ): Promise<User[]> {
+    // await new Promise((resolve) => setTimeout(resolve, 10000));
     return this.userService.getUsers(context, where, orderBy, pagination);
   }
 

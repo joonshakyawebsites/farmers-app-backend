@@ -1,3 +1,4 @@
+import { TruckTypeChoice } from "./../../prisma/generated/type-graphql/enums/TruckTypeChoice";
 import { LoginResponse, SetUserLocationInput } from "./../schema/user.schema";
 import { UserInputError } from "apollo-server-express";
 import bcrypt from "bcrypt";
@@ -52,6 +53,14 @@ class UserService {
     }
     if (input.type === UserTypeChoice.ADMIN) {
       throw new UserInputError("You cannot create an admin");
+    }
+    if (input.type === UserTypeChoice.DRIVER) {
+      if (!input.driverTruckNumber) {
+        throw new UserInputError("You must provide a truck number");
+      }
+      if (!input.driverTruckType) {
+        throw new UserInputError("You must provide a truck type");
+      }
     }
     if (input.password != input.confirmPassword) {
       throw new UserInputError("Passwords do not match");

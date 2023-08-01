@@ -1,6 +1,6 @@
 import { MaxLength, MinLength } from "class-validator";
 import { Field, Float, InputType, ObjectType } from "type-graphql";
-import { User, UserTypeChoice } from "@generated/type-graphql";
+import { TruckTypeChoice, User, UserTypeChoice } from "@generated/type-graphql";
 
 @InputType()
 export class CreateUserInput implements Partial<User> {
@@ -21,6 +21,11 @@ export class CreateUserInput implements Partial<User> {
 
   @Field(() => String, { nullable: true })
   driverTruckNumber?: string;
+
+  @Field(() => TruckTypeChoice, {
+    nullable: true,
+  })
+  driverTruckType?: TruckTypeChoice;
 
   @MinLength(6, {
     message: "password must be at least 6 characters long",
