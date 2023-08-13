@@ -1,5 +1,9 @@
 import { TruckTypeChoice } from "./../../prisma/generated/type-graphql/enums/TruckTypeChoice";
-import { LoginResponse, SetUserLocationInput } from "./../schema/user.schema";
+import {
+  LoginResponse,
+  SetUserLocationInput,
+  UpdateUserInput,
+} from "./../schema/user.schema";
 import { UserInputError } from "apollo-server-express";
 import bcrypt from "bcrypt";
 import { CreateUserInput, LoginInput } from "../schema/user.schema";
@@ -202,6 +206,19 @@ class UserService {
       },
     });
     return true;
+  }
+
+  async updateUser(context: Context, input: UpdateUserInput): Promise<User> {
+    if (context.user?.avatar !== input.avatar) {
+      // TODO delete old avatar
+    }
+
+    return await context.prisma.user.update({
+      where: {
+        id: context.user!.id,
+      },
+      data: input,
+    });
   }
 }
 

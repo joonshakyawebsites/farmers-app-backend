@@ -44,6 +44,12 @@ export class CreateUserInput implements Partial<User> {
 }
 
 @InputType()
+export class UpdateUserInput implements Partial<User> {
+  @Field(() => String)
+  avatar: string;
+}
+
+@InputType()
 export class LoginInput implements Partial<User> {
   @Field(() => UserTypeChoice)
   type: UserTypeChoice;
@@ -74,4 +80,17 @@ export class LoginResponse {
 
   @Field(() => User)
   user: User;
+}
+
+@ObjectType()
+export class S3SignedUrl {
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  signedUrl!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  url!: string;
 }
